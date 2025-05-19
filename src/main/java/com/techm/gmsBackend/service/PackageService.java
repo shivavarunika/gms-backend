@@ -12,15 +12,17 @@ public class PackageService {
 	private final PackageRepository packageRepository;
 
 	public PackageService(PackageRepository packageRepository) {
+
 		this.packageRepository = packageRepository;
 	}
 
 	public String createOrUpdatePackage(GymPackage packages) {
 		packageRepository.save(packages);
-		return "package created";
+		return "package updated/added";
 	}
 
 	public List<GymPackage> getAllPackages() {
+
 		return packageRepository.findAll();
 	}
 

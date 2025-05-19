@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.techm.gmsBackend.entity.GymPackage;
 import org.springframework.web.bind.annotation.*;
-
 import com.techm.gmsBackend.service.PackageService;
 
 @RestController
@@ -12,6 +11,7 @@ import com.techm.gmsBackend.service.PackageService;
 public class PackageController {
 	private final PackageService packageService;
 	public PackageController(PackageService packageService) {
+
 		this.packageService = packageService;
 	}
 	@PostMapping("/add")
@@ -24,10 +24,12 @@ public class PackageController {
 	}
 	@GetMapping("/get-all")
 	public List<GymPackage> getAllPackage(){
+
 		return packageService.getAllPackages();
 	}
 	@GetMapping("/get-id/{id}")
 	public GymPackage getPackageById(@PathVariable long id) {
+
 		return packageService.getPackage(id);
 	}
 	@DeleteMapping("/delete-id/{id}")
