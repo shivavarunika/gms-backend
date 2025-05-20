@@ -1,5 +1,6 @@
 package com.techm.gmsBackend.controller;
 
+import com.techm.gmsBackend.dto.LoginRequest;
 import com.techm.gmsBackend.entity.GymUser;
 import com.techm.gmsBackend.service.UserService;
 import org.springframework.web.bind.annotation.*;
@@ -23,15 +24,10 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest) {
-        String token = userService.login(loginRequest.getName(), loginRequest.getPassword());
+        String token = userService.login(loginRequest.getUsername(), loginRequest.getPassword());
         return ResponseEntity.ok(token);
     }
 
-    static class LoginRequest {
-        private String name;
-        private String password;
-        // Getters and setters
-    }
 }
 
 //@RestController

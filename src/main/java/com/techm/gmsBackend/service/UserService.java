@@ -1,5 +1,4 @@
 package com.techm.gmsBackend.service;
-import java.util.List;
 
 import com.techm.gmsBackend.dao.UserRepository;
 import com.techm.gmsBackend.entity.GymUser;
@@ -14,12 +13,10 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
-    private final JwtUtil jwtUtil;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, JwtUtil jwtUtil) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
-        this.jwtUtil = jwtUtil;
     }
 
     public String register(GymUser user) {
@@ -30,7 +27,11 @@ public class UserService {
     public String login(String name, String password) {
         Optional<GymUser> userOpt = userRepository.findByName(name);
         if (userOpt.isPresent() && passwordEncoder.matches(password, userOpt.get().getPassword())) {
-            return jwtUtil.generateToken(name);
+            try {
+                return JwtUtil.generateToken(name);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
         }
         throw new RuntimeException("Invalid credentials");
     }
